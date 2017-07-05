@@ -1,39 +1,32 @@
-import { Component, OnInit, OnDestroy } from '@angular/core';
-import { Router, ActivatedRoute } from '@angular/router';
-import { Subscription } from 'rxjs/Subscription';
-
-import { Recipe } from '../recipe.model';
-import { RecipeService } from '../recipe.service';
-
+import { Component, OnInit, Output, EventEmitter, OnDestroy } from '@angular/core';
+import { Recipe } from '../recipe.model'
+import { RecipeService } from "app/recipes/recipe.service";
+import { Router, ActivatedRoute } from "@angular/router";
 @Component({
   selector: 'app-recipe-list',
   templateUrl: './recipe-list.component.html',
-  styleUrls: ['./recipe-list.component.css']
+  styleUrls: ['./recipe-list.component.css'],
+ 
 })
-export class RecipeListComponent implements OnInit, OnDestroy {
-  recipes: Recipe[];
-  subscription: Subscription;
-
-  constructor(private recipeService: RecipeService,
-              private router: Router,
-              private route: ActivatedRoute) {
-  }
+export class RecipeListComponent implements OnInit{
+  recipes:Recipe[];
+  constructor(private recipeService:RecipeService, private router:Router, private route:ActivatedRoute) { }
 
   ngOnInit() {
-    this.subscription = this.recipeService.recipesChanged
-      .subscribe(
-        (recipes: Recipe[]) => {
-          this.recipes = recipes;
-        }
-      );
+    //This makes sure to refresh changes on the template
+     this.recipeService.recipeChanged.subscribe(
+                (recipes:Recipe[])=>{
+                    this.recipes = recipes;
+                    console.log("Recipe List", this.recipes);
+                }
+            );
+    // This line gets executed only once, i.e. at onInit        
     this.recipes = this.recipeService.getRecipes();
+    //console.log("Recipe List", this.recipes);
   }
 
-  onNewRecipe() {
-    this.router.navigate(['new'], {relativeTo: this.route});
+  loadEditRecipe(){
+    this.router.navigate(['new'], {relativeTo:this.route});
   }
 
-  ngOnDestroy() {
-    this.subscription.unsubscribe();
-  }
 }

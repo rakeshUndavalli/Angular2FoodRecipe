@@ -1,0 +1,47 @@
+<div class="row">
+  <div class="col-xs-12"
+    *ngIf="!ingredients; else Cart">
+    <h3>Cart Empty</h3>
+    <p>Please add ingredients to shopping cart or Fetch saved Ingredients</p>
+    <div class="row">
+      <div class="col-xs-12">
+        <ul class="list-group">
+          <li class="list-group-item"
+          *ngFor="let ingredient of savedIngredients">{{ingredient.name}}({{ingredient.amount}})</li>
+        </ul>
+      </div>
+    </div>
+    <button type="button"
+      class="btn btn-primary"
+      (click)="getSavedItems()">Get Saved Items</button>
+    <button type="button"
+      class="btn btn-warning"
+      routerLink="/shopping-list">Go To Shopping List</button>
+  </div>
+</div>
+<ng-template #Cart>
+<div class="row">
+  <div class="col-xs-12">
+    <h2>Your Cart Items</h2>
+    <hr>
+    <ul class="list-group">
+      <li class="list-group-item"
+        *ngFor="let ingredient of ingredients">{{ingredient.name}}({{ingredient.amount}})</li>
+    </ul>
+    <button type="button"
+      class="btn btn-success">Checkout</button>
+    <button type="button"
+      class="btn btn-primary"
+      (click)="saveCartItems()">Save For Later</button>  
+    <button type="button"
+      class="btn btn-primary"
+      routerLink="/shopping-list">Add More Items</button>  
+    <button type="button"
+      class="btn btn-primary"
+      (click)="getSavedItems()">Get Saved Items</button>  
+    <button type="button"
+      class="btn btn-danger"
+      (click)="onClearCart()">Clear Cart</button>  
+  </div>
+</div>
+</ng-template>

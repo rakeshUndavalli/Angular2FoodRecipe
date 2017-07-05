@@ -1,14 +1,14 @@
-import { NewCliPage } from './app.po';
+import { RecipePage } from './app.po';
 
-describe('new-cli App', () => {
-  let page: NewCliPage;
+describe('recipe App', () => {
+  let page: RecipePage;
 
   beforeEach(() => {
-    page = new NewCliPage();
+    page = new RecipePage();
   });
 
-  it('should display message saying app works', () => {
+  it('should display welcome message', () => {
     page.navigateTo();
-    expect(page.getParagraphText()).toEqual('app works!');
+    expect(page.getParagraphText()).toEqual('Welcome to app!!');
   });
 });
