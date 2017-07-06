@@ -7,8 +7,11 @@ import { DataStorageService } from "app/shared/data-storage.service";
 
 @Injectable()
 export class CheckoutService {
-  ingredients : Ingredient[];
+  ingredients : Ingredient[]=[];
   itemsAdded = false;
+  saveCurrentIngredients:Ingredient[] = [];
+  getSaved = true;
+
   savedIngredients = new Subject<Ingredient[]>();
   constructor(private slService:ShoppingListService) { }
 
@@ -18,17 +21,21 @@ export class CheckoutService {
         this.ingredients = ingredients;
       }
     );
-    if(this.ingredients!==null){
-      console.log("this is executed@2",this.ingredients)
-      return this.slService.getIngredients();
-    } else{
       return this.ingredients;
-    }
     
+  }
+  addCart(ingredients:Ingredient[]){
+    this.ingredients.push(...ingredients);
+    this.savedIngredients.next(this.ingredients);
+  }
+
+  saveCurrent(){
+    this.saveCurrentIngredients = this.ingredients;
+    console.log("saved ingredients", this.saveCurrentIngredients);
   }
 
   setIngredients(ingredients:Ingredient[]){
-    this.ingredients = ingredients;
+    this.ingredients.push(...ingredients);
     this.savedIngredients.next(this.ingredients.slice());
   }
 

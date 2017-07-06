@@ -35,9 +35,11 @@
       (click)="saveCartItems()">Save For Later</button>  
     <button type="button"
       class="btn btn-primary"
-      routerLink="/shopping-list">Add More Items</button>  
+      routerLink="/shopping-list"
+      (click)="onSaveCurrent()">Add More Items</button>  
     <button type="button"
       class="btn btn-primary"
+      [disabled]="!this.checkout.getSaved"
       (click)="getSavedItems()">Get Saved Items</button>  
     <button type="button"
       class="btn btn-danger"

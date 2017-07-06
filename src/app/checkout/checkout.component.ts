@@ -31,6 +31,7 @@ export class CheckoutComponent implements OnInit {
   }
 
   getSavedItems(){
+    this.checkout.getSaved = false;
     this.dataStorageService.getCartItems();
   }
   // getSavedItems(){
@@ -48,6 +49,10 @@ export class CheckoutComponent implements OnInit {
       .subscribe(
         (response:Response)=>{console.log(response)}
       );
+  }
+
+  onSaveCurrent(){
+    this.checkout.saveCurrent();
   }
 
   onClearCart(){
