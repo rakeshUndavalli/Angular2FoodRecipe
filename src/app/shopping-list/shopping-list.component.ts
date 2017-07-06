@@ -31,9 +31,10 @@ export class ShoppingListComponent implements OnInit, OnDestroy {
    onEditItem(index:number){
       this.shoppingList.startedEditing.next(index);
   }
-  onAddToCart(){
+ onAddToCart(){
     //this.checkout.cartItems.next(true);
     this.checkout.itemsAdded = true;
+    this.checkout.addCart(this.ingredients);
     this.router.navigate(['\checkout']);
 
   }
